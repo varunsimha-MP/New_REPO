@@ -99,7 +99,7 @@ I provisioned infrastructure using **Terraform with a modular structure**.
 * Route53 (DNS)
 * ACM (SSL certificate)
 
-“Infrastructure is fully defined using Terraform for repeatability.”
+Infrastructure is fully defined using Terraform for repeatability.
 ---
 
 ## 6. Security Architecture
