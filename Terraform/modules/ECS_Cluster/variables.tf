@@ -14,6 +14,10 @@ variable "docker_image" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
 variable "service_name" {
   type = string
 }

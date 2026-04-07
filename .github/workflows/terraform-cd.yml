@@ -3,7 +3,7 @@ name: Terraform CD (Apply)
 # TRIGGER
 on:
   push:
-    branches: ['master']
+    branches: ['main']
 
 # PERMISSIONS
 permissions:
