@@ -15,9 +15,10 @@ The application is a simple API that returns the current timestamp and client IP
 Before running this project, some initial setup is required.
 
 Tools Required:
-Terraform,
-Docker,
-Git
+* Terraform
+* AWS CLI
+* Docker
+* Git
 
 “These tools are required to build, deploy, and manage the infrastructure.”
 
@@ -43,15 +44,15 @@ Add:
 “Secrets are used to securely authenticate without hardcoding credentials.”
 
  2. AWS IAM Role for OIDC
-Create IAM Role with:
-Trust: GitHub OIDC provider
-Permissions: ECS, ECR (optional), S3, etc.
+* Create IAM Role with:
+* Trust: GitHub OIDC provider
+* Permissions: ECS, ECR (optional), S3, etc.
 
 “This enables secure, password-less authentication from GitHub to AWS.”
 
 3. Enable GitHub Environment (Optional)
-Create environment: dev
-Add approval rules (optional)
+* Create environment: dev
+* Add approval rules (optional)
 
 “This adds an approval gate before deployment.”
 ---
