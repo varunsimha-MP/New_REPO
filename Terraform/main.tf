@@ -65,6 +65,7 @@ module "app_ecs" {
     target_group_arn = module.alb.target_group_arn
 
     cluster_name = var.cluster_name
+    region = var.app_region
     tf_cpu = var.tf_cpu
     tf_memory = var.tf_memory
     docker_image = var.docker_image

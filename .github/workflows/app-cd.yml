@@ -1,0 +1,31 @@
+name: App CD (Deploy to ECS)
+
+on:
+  workflow_run:
+    workflows: ["App CI (Build & Push Docker Image)"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Configure AWS Credentials (OIDC)
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.OIDC }}
+          aws-region: ${{ secrets.region }}
+
+      # Update ECS Service (Rolling Deployment)
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster simple-time-cluster \
+            --service simple-time-service \
+            --force-new-deployment

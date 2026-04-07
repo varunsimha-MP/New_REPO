@@ -69,7 +69,7 @@ cluster_name = "simple-time-cluster"
 tf_cpu    = "256"
 tf_memory = "512"
 
-docker_image = "yourdockerhub/simple-time-service"
+docker_image = "varunsimha/simple-time-service"
 
 service_name = "simple-time-service"
 

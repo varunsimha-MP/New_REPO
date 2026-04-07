@@ -3,6 +3,8 @@ variable "app_region" {
     type = string
 }
 
+# VPC + NETWORKING
+# Creates VPC, subnets, route tables, NAT gateway
 variable "cidr_block" {
   type = string
 }
@@ -49,7 +51,47 @@ variable "pri_rt" {
   
 }
 
-#ECS
+# APPLICATION LOAD BALANCER
+variable "alb_name" {
+    type = string
+}
+
+variable "public_subnets" {
+    type = list(string)
+}
+
+variable "alb_sg_name" {
+    type = string
+}
+
+variable "alb_sg_description" {
+    type = string
+}
+
+variable "alb_sg" {
+  type = map(string)
+}
+
+variable "alb_tg_name" {
+  type = string
+}
+
+variable "certificate_arn" {
+  type = string
+}
+
+variable "alb_egress" {
+  type = map(object({
+    description = string
+    cidr_block = list(string)
+    protocol = string
+    port = number
+  }))
+}
+
+
+
+# ECS APPLICATION
 variable "cluster_name" {
   type = string
 }
@@ -74,19 +116,11 @@ variable "private_subnets" {
     type = list(string)
 }
 
-variable "target_group_arn" {
-    type = string
-}
-
 variable "srv_sg_name" {
     type = string
 }
 
 variable "srv_sg_description" {
-    type = string
-}
-
-variable "core_network" {
     type = string
 }
 
@@ -103,44 +137,3 @@ variable "ecs_egress" {
   }))
 }
 
-#ALB
-variable "alb_name" {
-    type = string
-}
-
-variable "public_subnets" {
-    type = list(string)
-}
-
-variable "alb_sg_name" {
-    type = string
-}
-
-variable "alb_sg_description" {
-    type = string
-}
-
-variable "core_network" {
-    type = string
-}
-
-variable "alb_sg" {
-  type = map(string)
-}
-
-variable "alb_tg_name" {
-  type = string
-}
-
-variable "certificate_arn" {
-  type = string
-}
-
-variable "alb_egress" {
-  type = map(object({
-    description = string
-    cidr_block = list(string)
-    protocol = string
-    port = number
-  }))
-}

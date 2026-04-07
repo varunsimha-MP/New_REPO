@@ -10,10 +10,17 @@ resource "aws_ecs_service" "app" {
   # Number of running containers
   desired_count = 1
 
+  # ROLLING DEPLOYMENT
+  deployment_maximum_percent = 200
+  deployment_minimum_healthy_percent = 50
+  force_new_deployment = true
+  health_check_grace_period_seconds = 60
+
   # Networking (private subnet)
   network_configuration {
     subnets         = var.private_subnets
     security_groups = [aws_security_group.ecs_sg.id]
+    assign_public_ip = false
   }
 
   # Attach to ALB target group

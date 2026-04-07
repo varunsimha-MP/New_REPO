@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "app_tf" {
   container_definitions = jsonencode([
     {
       name  = "app"
-      image = var.docker_image
+      image = "${var.docker_image}:latest"
 
       portMappings = [
         {
