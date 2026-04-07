@@ -14,14 +14,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    
+
     steps:
       # Configure AWS Credentials (OIDC)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.OIDC }}
-          aws-region: ${{ secrets.region }}
+          aws-region: ap-souteast-1
 
       # Update ECS Service (Rolling Deployment)
       - name: Deploy to ECS

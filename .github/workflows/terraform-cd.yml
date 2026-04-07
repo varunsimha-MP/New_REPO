@@ -35,7 +35,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.OIDC }}
-          aws-region: ${{ secrets.region }}
+          aws-region: ap-souteast-1
 
       # INIT
       - name: Terraform Init
