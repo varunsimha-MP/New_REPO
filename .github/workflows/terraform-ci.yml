@@ -2,8 +2,10 @@ name: Terraform CI (Plan)
 
 # TRIGGER
 on:
+  push:
+    branches: ['*']          # Runs CI on every push
   pull_request:
-    branches: ['main']
+    branches: ['main']       # Runs again when PR is created
 
 # PERMISSIONS
 permissions:
