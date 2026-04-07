@@ -1,0 +1,58 @@
+name: Terraform CD (Apply)
+
+# TRIGGER
+on:
+  push:
+    branches: ['main']
+
+# PERMISSIONS
+permissions:
+  contents: read
+  id-token: write
+
+# JOB
+jobs:
+  terraform-cd:
+    runs-on: ubuntu-latest
+    environment: dev  # Enables approval if configured
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+
+      # CHECKOUT CODE
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # SETUP TERRAFORM
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # AWS AUTH (OIDC)
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.OIDC }}
+          aws-region: ${{ secrets.region }}
+
+      # INIT
+      - name: Terraform Init
+        run: terraform init
+        working-directory: Terraform
+
+      # PLAN (SAVE)
+      - name: Terraform Plan
+        run: terraform plan -var-file="test.tfvars" -out=tfplan
+        working-directory: Terraform
+
+      # Upload tfplan to S3
+      - name: copy tfplan file to s3
+        run: aws s3 cp tfplan s3://terraform-devops-backend-file/terraform-plans/tfplan-${GITHUB_RUN_ID}
+        working-directory: Terraform
+
+      # APPLY
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+        working-directory: Terraform

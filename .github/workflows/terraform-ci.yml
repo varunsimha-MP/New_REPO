@@ -1,0 +1,58 @@
+name: Terraform CI (Plan)
+
+# TRIGGER
+on:
+  pull_request:
+    branches: ['main']
+
+# PERMISSIONS
+permissions:
+  contents: read
+  id-token: write
+
+
+# JOB
+jobs:
+  terraform-ci:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+
+      # CHECKOUT CODE
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # SETUP TERRAFORM
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # AWS AUTH (OIDC)
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.OIDC }}
+          aws-region: ${{ secrets.region }}
+
+      # INIT#
+      - name: Terraform Init
+        run: terraform init
+        working-directory: Terraform
+
+      # FORMAT CHECK
+      - name: Terraform Format
+        run: terraform fmt -check
+        working-directory: Terraform
+
+      # VALIDATE
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: project_n
+
+      # PLAN (NO APPLY)
+      - name: Terraform Plan
+        run: terraform plan -var-file="dev-environment.tfvars"
+        working-directory: project_n
