@@ -15,8 +15,9 @@ module "core_vpc" {
     pub_cidr_block = var.pub_cidr_block
     pub_count = var.pub_count
 
-    # Internet Gateway
+    # Internet and NAT Gateway
     ig = var.ig
+    nat = var.nat
 
     # Public route table
     pub_rt = var.pub_rt
@@ -99,3 +100,4 @@ resource "aws_security_group_rule" "ecs_from_alb" {
   security_group_id        = module.app_ecs.ecs_sg
   source_security_group_id = module.alb.alb_sg.id
 }
+
