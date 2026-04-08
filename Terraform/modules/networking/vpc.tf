@@ -60,8 +60,11 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "app_nat" {
     count = var.pub_count
-    allocation_id = aws_eip.nat.id
+    allocation_id = aws_eip.nat[count.index].id
     subnet_id = aws_subnet.pub_subnet[count.index].id
+    tags = {
+    Name = "natgatway-${count.index}"
+  }
 }
 
 resource "aws_route_table" "pri_rt" {
