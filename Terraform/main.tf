@@ -88,7 +88,7 @@ resource "aws_security_group_rule" "alb_to_ecs" {
   to_port                  = 8080
   protocol                 = "tcp"
   security_group_id        = module.alb.alb_sg
-  source_security_group_id = module.app_ecs.ecs_sg.id
+  source_security_group_id = module.app_ecs.ecs_sg
 }
 
 # ECS ← ALB
@@ -98,6 +98,6 @@ resource "aws_security_group_rule" "ecs_from_alb" {
   to_port                  = 8080
   protocol                 = "tcp"
   security_group_id        = module.app_ecs.ecs_sg
-  source_security_group_id = module.alb.alb_sg.id
+  source_security_group_id = module.alb.alb_sg
 }
 
