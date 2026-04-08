@@ -34,6 +34,9 @@ pri_rt = {
   Name = "private-rt"
 }
 
+#DNS
+domain_name = "simha.in.net"
+
 # ALB CONFIG
 
 alb_name = "app_alb"

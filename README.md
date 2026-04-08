@@ -99,6 +99,17 @@ I provisioned infrastructure using **Terraform with a modular structure**.
 * Route53 (DNS)
 * ACM (SSL certificate)
 
+### DNS Delegation - Route53 (DNS)
+
+After creating the hosted zone, update the domain registrar with the provided NS records:
+
+1. Navigate to your domain registrar (e.g., GoDaddy, Namecheap).
+2. Locate the domain’s DNS / Nameserver settings.
+3. Replace existing nameservers with the NS records from the hosted zone.
+4. Save changes and allow time for DNS propagation.
+
+> Note: Without this step, the domain will not resolve to the infrastructure provisioned in the hosted zone it will be stuck the infrastructure provision.
+
 Infrastructure is fully defined using Terraform for repeatability.
 ---
 

@@ -34,6 +34,7 @@ module "core_vpc" {
 # Creates hosted zone + SSL certificate
 module "dns" {
   source = "./modules/route53_acm"
+  domain_name = var.domain_name
 }
 
 # APPLICATION LOAD BALANCER

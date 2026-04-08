@@ -51,6 +51,10 @@ variable "pri_rt" {
   
 }
 
+#DNS
+variable "domain_name" {
+  type = string
+}
 # APPLICATION LOAD BALANCER
 variable "alb_name" {
     type = string
@@ -73,10 +77,6 @@ variable "alb_sg" {
 }
 
 variable "alb_tg_name" {
-  type = string
-}
-
-variable "certificate_arn" {
   type = string
 }
 

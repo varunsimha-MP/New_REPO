@@ -1,11 +1,11 @@
 # Hosted zone
 resource "aws_route53_zone" "dns" {
-    name = "simha.in.net"
+    name = var.domain_name
 }
 
 # SSL certificate
 resource "aws_acm_certificate" "ssl" {
-    domain_name = "simha.in.net"
+    domain_name = var.domain_name
     validation_method = "DNS"
     depends_on = [ aws_route53_zone.dns]
 }
