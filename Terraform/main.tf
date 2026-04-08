@@ -42,7 +42,7 @@ module "dns" {
 # Public entry point for traffic
 module "alb" {
     source = "./modules/app_alb"
-    depends_on = [ module.core_vpc, module.dns ]
+    depends_on = [ module.core_vpc ]
 
     public_subnets = module.core_vpc.pub_subnet
     core_network = module.core_vpc.core_network
@@ -101,3 +101,17 @@ resource "aws_security_group_rule" "ecs_from_alb" {
   source_security_group_id = module.alb.alb_sg
 }
 
+#Updating the DNS record to point to ALB
+resource "aws_route53_record" "alb_record" {
+  zone_id = module.dns.zone_id
+  name    = var.domain_name
+  type    = "A"
+
+  alias {
+    name                   = module.alb.alb_dns
+    zone_id                = module.alb.alb_zone_id
+    evaluate_target_health = true
+  }
+
+  depends_on = [module.alb]
+}
