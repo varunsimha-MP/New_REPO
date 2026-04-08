@@ -50,7 +50,7 @@ alb_sg = {
   Name = "alb-sg"
 }
 
-alb_tg_name = "app_-tg"
+alb_tg_name = "app-tg"
 
 alb_ingress = {
   http = {
