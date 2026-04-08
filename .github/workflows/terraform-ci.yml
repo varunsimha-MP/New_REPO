@@ -52,9 +52,8 @@ jobs:
       # VALIDATE
       - name: Terraform Validate
         run: terraform validate
-        working-directory: project_n
-
+        
       # PLAN (NO APPLY)
       - name: Terraform Plan
         run: terraform plan -var-file="dev-environment.tfvars"
-        working-directory: project_n
+        working-directory: Terraform
